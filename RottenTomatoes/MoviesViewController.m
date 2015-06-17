@@ -15,6 +15,7 @@
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -27,6 +28,13 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.tableView;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(loadMovies) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;
 
     NSString *url = @"https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json";
     
@@ -36,6 +44,18 @@
         self.movies = dict[@"movies"];
         [self.tableView reloadData];
         [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)loadMovies {
+    NSString *url = @"https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json";
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL: [NSURL URLWithString:url]];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        self.movies = dict[@"movies"];
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
     }];
 }
 
