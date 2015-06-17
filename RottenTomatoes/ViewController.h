@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIImageView+AFNetworking.h>
 
 @interface ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *posterView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
 
-
+@property (weak, nonatomic) NSDictionary *movie;
 @end
 
