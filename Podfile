@@ -3,6 +3,7 @@
 
 target 'RottenTomatoes' do
   pod "AFNetworking"
+  pod 'SVProgressHUD'
 end
 
 target 'RottenTomatoesTests' do

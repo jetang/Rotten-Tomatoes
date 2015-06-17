@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <SVProgressHUD.h>
 
 @interface ViewController ()
 
@@ -21,7 +22,14 @@
     self.synopsisLabel.text = self.movie[@"synopsis"];
     NSString *postURLString = [self.movie valueForKeyPath:@"posters.detailed"];
     postURLString = [self convertPosterStringToHighRes:postURLString];
-    [self.posterView setImageWithURL:[NSURL URLWithString:postURLString]];
+//    [self.posterView setImageWithURL:[NSURL URLWithString:postURLString]];
+
+    [self.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postURLString]] placeholderImage:nil
+                                    success:^(NSURLRequest *request , NSHTTPURLResponse *response , UIImage *image ){
+                                        [self.posterView setImage:image];
+                                        [SVProgressHUD dismiss];
+                                    }
+                                    failure:nil];
 }
 
 - (void)didReceiveMemoryWarning {

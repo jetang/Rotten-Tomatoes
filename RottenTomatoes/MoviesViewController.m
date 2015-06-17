@@ -10,6 +10,7 @@
 #import "MovieCell.h"
 #import "ViewController.h"
 #import <UIImageView+AFNetworking.h>
+#import <SVProgressHUD.h>
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -20,6 +21,7 @@
 @implementation MoviesViewController
 
 - (void)viewDidLoad {
+    [SVProgressHUD show];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -33,6 +35,7 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.movies = dict[@"movies"];
         [self.tableView reloadData];
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -72,6 +75,7 @@
     NSDictionary *movie = self.movies[indexPath.row];
     ViewController  *destinationVC = segue.destinationViewController;
     destinationVC.movie = movie;
+    [SVProgressHUD show];
 }
 
 
