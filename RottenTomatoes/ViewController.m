@@ -10,6 +10,7 @@
 #import <SVProgressHUD.h>
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIView *alertView;
 
 @end
 
@@ -18,18 +19,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"synopsis"];
     NSString *postURLString = [self.movie valueForKeyPath:@"posters.detailed"];
+    if ([self.titleLabel.text  isEqual: @"Get Hard"]) { // demo network error
+        postURLString = @"http://non-existance/";
+    }
     postURLString = [self convertPosterStringToHighRes:postURLString];
-//    [self.posterView setImageWithURL:[NSURL URLWithString:postURLString]];
+
 
     [self.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postURLString]] placeholderImage:nil
                                     success:^(NSURLRequest *request , NSHTTPURLResponse *response , UIImage *image ){
                                         [self.posterView setImage:image];
                                         [SVProgressHUD dismiss];
                                     }
-                                    failure:nil];
+                                    failure:^(NSURLRequest *request , NSHTTPURLResponse *response , NSError *error ){
+                                        self.alertView.hidden = false;
+                                        [SVProgressHUD dismiss];
+                                    }
+     ];
 }
 
 - (void)didReceiveMemoryWarning {

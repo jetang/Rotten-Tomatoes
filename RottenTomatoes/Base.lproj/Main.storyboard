@@ -100,12 +100,29 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PB7-pD-FFx">
+                                <rect key="frame" x="0.0" y="65" width="320" height="28"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="warning1.png" translatesAutoresizingMaskIntoConstraints="NO" id="N97-cR-XIQ">
+                                        <rect key="frame" x="80" y="0.0" width="37" height="28"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5b-P6-seT">
+                                        <rect key="frame" x="125" y="3" width="122" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Oth-M9-iJj"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="alertView" destination="PB7-pD-FFx" id="ewn-91-sBJ"/>
                         <outlet property="posterView" destination="agN-iv-PO1" id="zPo-Df-awh"/>
                         <outlet property="synopsisLabel" destination="r05-8f-dEF" id="pX3-ct-N4N"/>
                         <outlet property="titleLabel" destination="XxR-39-Ck2" id="Xdx-pQ-W8C"/>
@@ -135,4 +152,7 @@
             <point key="canvasLocation" x="-64" y="175"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="warning1.png" width="1200" height="1200"/>
+    </resources>
 </document>
